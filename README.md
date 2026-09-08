@@ -1,85 +1,38 @@
-# Roast My Ex
+# ONE15 Media
 
-AI-powered roast generator built with Next.js 16 and the App Router. Users submit messy lore about their exes and get back chaotic roasts, duel battles, shareable roast cards, and AI-generated audio burns.
+The website for [115audio.com](https://115audio.com), built with Next.js and ready for Vercel.
 
-## Prerequisites
+## Pages
 
-- Node.js 20.x (matched via `netlify.toml`)
-- npm 10+
-- An [OpenAI API key](https://platform.openai.com/)
+- `/` — ONE15 Media studio homepage
+- `/audit` — ONE15 Audit sales page, including the $149 Conversion Leak Scan, $495 Full Website Audit, sample finding, and contact form
 
-## Local Development
-
-1. Duplicate the provided environment template and add your key:
-   ```bash
-   cp env.example .env.local
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the dev server:
-   ```bash
-   npm run dev
-   ```
-4. Visit http://localhost:3000.
-
-### Netlify-aware dev server
-
-If you prefer to mimic the Netlify runtime locally, install the Netlify CLI (`npm i -g netlify-cli`) and run:
+## Local development
 
 ```bash
-netlify dev
+npm install
+npm run dev
 ```
 
-The `[dev]` block inside `netlify.toml` proxies requests through `next dev`, so API routes and streaming responses behave just like they will in production.
+Open [http://localhost:3000](http://localhost:3000).
 
-## Environment Variables
-
-| Name            | Required | Description                        |
-| --------------- | -------- | ---------------------------------- |
-| `OPENAI_API_KEY`| ✅       | Used by `/api/roast` and `/api/tts`|
-
-## Available Scripts
-
-| Script       | Description                            |
-| ------------ | -------------------------------------- |
-| `npm run dev`| Start Next.js in development mode      |
-| `npm run build` | Production build (used by Netlify)  |
-| `npm run start` | Serve the production build locally  |
-| `npm run lint`  | Run ESLint                          |
-
-## Deploying to Netlify
-
-Netlify is already configured via `netlify.toml`:
-
-- `@netlify/next` plugin handles SSR, App Router, and route handlers.
-- Functions bundle with `esbuild` and keep the `openai` dependency external.
-- Node 20 is enforced so the OpenAI SDK and Next 16 run against a supported runtime.
-
-### One-time setup
-
-1. Install & authenticate the CLI: `npm i -g netlify-cli && netlify login`
-2. Initialize the site (or link an existing one): `netlify init`
-3. Add your API key: `netlify env:set OPENAI_API_KEY <your-key>`
-
-### Deploy
+## Production checks
 
 ```bash
-netlify deploy --build            # deploy to a draft URL
-netlify deploy --build --prod     # deploy to production
+npm run lint
+npm run build
 ```
 
-The build command (`npm run build`) and publish directory (`.next`) are read from `netlify.toml`, so no extra flags are necessary. Once deployed, Netlify will automatically expose the generated Next.js functions at `/.netlify/functions/`.
+## Vercel deployment
 
-## Project Structure
+1. Import this GitHub repository into Vercel.
+2. Keep the detected **Next.js** framework preset and default build settings.
+3. Deploy to a Vercel preview URL for review.
+4. Add `115audio.com` in **Project Settings → Domains** when the preview is approved.
 
-- `app/` – Next.js App Router pages and route handlers
-- `app/api/roast` – Generates roast text via the OpenAI Chat Completions API
-- `app/api/tts` – Creates shareable audio via OpenAI TTS
-- `public/` – Static assets for the marketing surface
-- `netlify.toml` – Build, dev, and plugin configuration for Netlify
+Pushes and pull requests will then create automatic Vercel deployments. No environment variables are currently required.
 
-## Testing & Linting
+## Before launch
 
-Use `npm run lint` before opening a PR or triggering a deploy to ensure App Router components and API handlers pass ESLint.
+- Replace the email request link in `app/audit/page.tsx` with the live Stripe Payment Link when it is available.
+- Confirm that `hello@115audio.com` is the preferred public contact email.
